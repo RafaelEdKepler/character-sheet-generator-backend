@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
 import { getCustomRepository } from 'typeorm';
 
-import { ClassRepository } from '../reporitories/ClassRepository';
-import { BenefitClassRepository } from '../reporitories/BenefitClassRepository';
+import { ClassRepository } from '../repositories/ClassRepository';
+import { BenefitClassRepository } from '../repositories/BenefitClassRepository';
 
 class BenefitClassController {
 
-    async create(request: Request, response: Response) {
+    async createWithName(request: Request, response: Response) {
         const benefitClassRepository = getCustomRepository(BenefitClassRepository);
         const classeRepository = getCustomRepository(ClassRepository);
         
@@ -24,6 +24,23 @@ class BenefitClassController {
         
         const benefitClass = benefitClassRepository.create({
             class: classe.id,
+            type, target, value
+        })
+        
+        await benefitClassRepository.save(benefitClass);
+
+        return response.json({
+            message: "Benfício de classe foi criado com sucesso!"
+        })
+    }
+
+    async create(request: Request, response: Response) {
+        const benefitClassRepository = getCustomRepository(BenefitClassRepository);        
+        
+        const { classe, type, target, value } = request.body;
+        
+        const benefitClass = benefitClassRepository.create({
+            class: classe,
             type, target, value
         })
         

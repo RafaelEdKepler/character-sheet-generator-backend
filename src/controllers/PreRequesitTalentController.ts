@@ -2,63 +2,63 @@ import { Request, Response } from 'express';
 import { getCustomRepository } from 'typeorm';
 
 import { TalentRepository } from '../repositories/TalentRepository';
-import { BenefitTalentRepository } from '../repositories/BenefitTalentRepository';
+import { PreRequisiteMagicRepository } from '../repositories/PreRequesitTalentRepository';
 import { CharacteristicTalentInterface } from '../utils/interfaces';
 
-class BenefitTalentController {
+class PreRequesitTalentController {
 
     async createWithName(request: Request, response: Response) {
-        const benefitTalentRepository = getCustomRepository(BenefitTalentRepository);
+        const preRequesiteTalentRepository = getCustomRepository(PreRequisiteMagicRepository);
         const talentRepository = getCustomRepository(TalentRepository);
         
-        const { TalentName, type, target, value } = request.body;
+        const { talentName, type, target, value } = request.body;
         
         const talent = await talentRepository.findOne({
-            'name': TalentName
+            'name': talentName
         });
         
         if (!talent) {
             return response.status(404).json({
-                message: "Magia não existente"
+                message: "Talento não existente"
             })
         }
         
-        const benefitTalent = benefitTalentRepository.create({
+        const benefitTalent = preRequesiteTalentRepository.create({
             talent: talent.id,
             type, target, value
         })
         
-        await benefitTalentRepository.save(benefitTalent);
+        await preRequesiteTalentRepository.save(benefitTalent);
 
         return response.json({
-            message: "Benefício de Talento foi criado com sucesso!"
+            message: "Pré-requisito de Talento foi criado com sucesso!"
         })
     }
 
-    async create(benefits: CharacteristicTalentInterface) {
-        const benefitTalentRepository = getCustomRepository(BenefitTalentRepository);        
+    async create(preRequesits: CharacteristicTalentInterface) {
+        const preRequesiteTalentRepository = getCustomRepository(PreRequisiteMagicRepository);        
         
-        const { talent, type, target, value } = benefits;        
+        const { talent, type, target, value } = preRequesits;        
         
-        const benefitTalent = benefitTalentRepository.create({
+        const benefitTalent = preRequesiteTalentRepository.create({
             talent: talent,
             type, target, value
         })
         
-        await benefitTalentRepository.save(benefitTalent);
+        await preRequesiteTalentRepository.save(benefitTalent);
 
         return;
     }
 
     async list(request: Request, response: Response) {
-        const { TalentName } = request.body;
+        const { talentName } = request.body;
 
         const talentRepository = getCustomRepository(TalentRepository);
-        const benefitTalentRepository = getCustomRepository(BenefitTalentRepository);
+        const preRequesiteTalentRepository = getCustomRepository(PreRequisiteMagicRepository);
 
 
         const talent = await talentRepository.findOne({
-            'name': TalentName
+            'name': talentName
         });
 
         if (!talent) {
@@ -67,7 +67,7 @@ class BenefitTalentController {
             });
         }
 
-        const benefitsTalent = await benefitTalentRepository.find({
+        const benefitsTalent = await preRequesiteTalentRepository.find({
             talent: talent.id
         });
 
@@ -77,4 +77,4 @@ class BenefitTalentController {
     }
 }
 
-export { BenefitTalentController };
+export { PreRequesitTalentController };

@@ -2,13 +2,13 @@ import { Request, Response } from 'express';
 import { getCustomRepository } from 'typeorm';
 
 import { MagicRepository } from '../repositories/MagicRepository';
-import { BenefitMagicRepository } from '../repositories/BenefitMagicRepository';
+import { PreRequisiteMagicRepository } from '../repositories/PreRequesitMagicRepository';
 import { CharacteristicMagicInterface } from '../utils/interfaces';
 
-class BenefitMagicController {
+class PreRequesitMagicController {
 
     async createWithName(request: Request, response: Response) {
-        const benefitMagicRepository = getCustomRepository(BenefitMagicRepository);
+        const preRequisiteMagicRepository = getCustomRepository(PreRequisiteMagicRepository);
         const magicRepository = getCustomRepository(MagicRepository);
         
         const { magicName, type, target, value } = request.body;
@@ -23,29 +23,29 @@ class BenefitMagicController {
             })
         }
         
-        const benefitMagic = benefitMagicRepository.create({
+        const benefitMagic = preRequisiteMagicRepository.create({
             magic: magic.id,
             type, target, value
         })
         
-        await benefitMagicRepository.save(benefitMagic);
+        await preRequisiteMagicRepository.save(benefitMagic);
 
         return response.json({
-            message: "Benefício de Magia foi criado com sucesso!"
+            message: "Pré-requisito da Magia foi criado com sucesso!"
         })
     }
 
-    async create(benefits: CharacteristicMagicInterface) {
-        const benefitMagicRepository = getCustomRepository(BenefitMagicRepository);        
+    async create(preRequesits: CharacteristicMagicInterface) {
+        const preRequisiteMagicRepository = getCustomRepository(PreRequisiteMagicRepository);        
         
-        const { magic, type, target, value } = benefits;
+        const { magic, type, target, value } = preRequesits;        
         
-        const benefitMagic = benefitMagicRepository.create({
+        const benefitMagic = preRequisiteMagicRepository.create({
             magic: magic,
             type, target, value
         })
         
-        await benefitMagicRepository.save(benefitMagic);
+        await preRequisiteMagicRepository.save(benefitMagic);
 
         return;
     }
@@ -54,7 +54,7 @@ class BenefitMagicController {
         const { magicName } = request.body;
 
         const magicRepository = getCustomRepository(MagicRepository);
-        const benefitMagicRepository = getCustomRepository(BenefitMagicRepository);
+        const preRequisiteMagicRepository = getCustomRepository(PreRequisiteMagicRepository);
 
 
         const magic = await magicRepository.findOne({
@@ -63,11 +63,11 @@ class BenefitMagicController {
 
         if (!magic) {
             return response.status(404).json({
-                message: "Habilidade de Classe não existente"
+                message: "Magia não existente"
             });
         }
 
-        const benefitsMagic = await benefitMagicRepository.find({
+        const benefitsMagic = await preRequisiteMagicRepository.find({
             magic: magic.id
         });
 
@@ -77,4 +77,4 @@ class BenefitMagicController {
     }
 }
 
-export { BenefitMagicController };
+export { PreRequesitMagicController };

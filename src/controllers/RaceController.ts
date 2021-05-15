@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
-import { getRepository } from 'typeorm';
-import { Race } from '../models/Race';
+import { getCustomRepository } from 'typeorm';
+import { RaceRepository } from '../repositories/RaceRepository';
 
 
 class RaceController {
 
     async create(request: Request, response: Response) {
-        const raceRepository = getRepository(Race);
+        const raceRepository = getCustomRepository(RaceRepository);
 
         const { name, description } = request.body;
         const race = raceRepository.create({
@@ -21,7 +21,7 @@ class RaceController {
     }
 
     async list(request: Request, response: Response) {
-        const raceRepository = getRepository(Race);
+        const raceRepository = getCustomRepository(RaceRepository);
 
         const races = await raceRepository.find();
 

@@ -3,7 +3,7 @@ import { Magic } from "./Magic";
 import { v4 as uuid } from "uuid";
 
 @Entity('magic_pre_requisites')
-class MagicPreRequisite {
+class PreRequesitMagic {
     @PrimaryColumn()
     readonly id: string;
 
@@ -27,4 +27,4 @@ class MagicPreRequisite {
 
 }
 
-export { MagicPreRequisite };
+export { PreRequesitMagic };

@@ -8,7 +8,7 @@ class BenefitRaceHability {
     readonly id: string;
 
     @ManyToOne(() => RaceHability, raceHability => raceHability.id)
-    race_hability: string;
+    raceHability: string;
 
     @Column()
     type: string;

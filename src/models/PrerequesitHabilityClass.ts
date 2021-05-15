@@ -3,7 +3,7 @@ import { ClassHability } from "./ClassHability";
 import { v4 as uuid } from "uuid";
 
 @Entity('class_hability_pre_requisites')
-class ClassHabilityPreRequisite {
+class PreRequesitHabilityClass {
     @PrimaryColumn()
     readonly id: string;
 
@@ -17,7 +17,7 @@ class ClassHabilityPreRequisite {
     target: string;
 
     @Column()
-    value: string;
+    value: number;
 
     constructor() {
         if (!this.id) {
@@ -27,4 +27,4 @@ class ClassHabilityPreRequisite {
 
 }
 
-export { ClassHabilityPreRequisite };
+export { PreRequesitHabilityClass };
