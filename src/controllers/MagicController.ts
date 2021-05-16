@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { getCustomRepository } from 'typeorm';
 import { MagicRepository } from '../repositories/MagicRepository';
-import { CharacteristicMagicArrayInterface } from '../utils/interfaces';
+import { CharacteristicInterface } from '../utils/interfaces';
 import { BenefitMagicController } from './BenefitMagicController';
 import { PreRequesitMagicController } from './PreRequesitMagicController';
 
@@ -33,17 +33,19 @@ class MagicController {
 
         await magicRepository.save(magic);
 
-        const benefitMagicController = new BenefitMagicController(); 
+        const benefitMagicController = new BenefitMagicController();
         const preRequesitMagicController = new PreRequesitMagicController();
-        features.forEach((item: CharacteristicMagicArrayInterface) => {
-            item.benefit.magic = magic.id;
-            item.pre_requesit.magic = magic.id;
-            benefitMagicController.create(item.benefit);
-            preRequesitMagicController.create(item.pre_requesit);
+        features.benefits.forEach((item: CharacteristicInterface) => {
+            item.id = magic.id;
+            benefitMagicController.create(item);
+        })
+        features.benefits.forEach((item: CharacteristicInterface) => {
+            item.id = magic.id;
+            preRequesitMagicController.create(item);
         })
 
         return response.json({
-            message: "Equipamento foi criado com sucesso!"
+            message: "Magia foi criada com sucesso!"
         })
     }
 

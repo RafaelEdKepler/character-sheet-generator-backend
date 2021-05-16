@@ -12,7 +12,7 @@ export class CreateTalentBenefits1620952713839 implements MigrationInterface {
                         type: "uuid",
                         isPrimary: true
                     }, {
-                        name: "talent_id",
+                        name: "talent",
                         type: "uuid"
                     },
                     {
@@ -32,7 +32,7 @@ export class CreateTalentBenefits1620952713839 implements MigrationInterface {
                         name: "FKClass",
                         referencedTableName: "talents",
                         referencedColumnNames: ["id"],
-                        columnNames: ["talent_id"],
+                        columnNames: ["talent"],
                         onDelete: "CASCADE",
                         onUpdate: "CASCADE"
                     }

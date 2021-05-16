@@ -1,13 +1,12 @@
-import { Column, Entity, ManyToOne, PrimaryColumn } from "typeorm";
-import { Class } from "./Class";
+import { Column, Entity, PrimaryColumn } from "typeorm";
 import { v4 as uuid } from "uuid";
 
-@Entity('benefit_classes')
+@Entity('class_benefits')
 class BenefitClass {
     @PrimaryColumn()
     readonly id: string;
 
-    @ManyToOne(() => Class, classe => classe.id)
+    @Column()
     class: string;
 
     @Column()

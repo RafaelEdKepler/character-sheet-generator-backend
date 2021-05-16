@@ -12,7 +12,7 @@ export class CreateMagicPreRequisites1620952405054 implements MigrationInterface
                         type: "uuid",
                         isPrimary: true
                     }, {
-                        name: "magic_id",
+                        name: "magic",
                         type: "uuid"
                     },
                     {
@@ -32,7 +32,7 @@ export class CreateMagicPreRequisites1620952405054 implements MigrationInterface
                         name: "FKClass",
                         referencedTableName: "magics",
                         referencedColumnNames: ["id"],
-                        columnNames: ["magic_id"],
+                        columnNames: ["magic"],
                         onDelete: "CASCADE",
                         onUpdate: "CASCADE"
                     }

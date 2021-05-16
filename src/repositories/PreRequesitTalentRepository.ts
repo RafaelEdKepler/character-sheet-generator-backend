@@ -1,9 +1,9 @@
 import { EntityRepository, Repository } from 'typeorm';
-import { TalentPreRequisite } from '../models/PreRequesitTalent';
+import { PreRequesitTalent } from '../models/PreRequesitTalent';
 
-@EntityRepository(TalentPreRequisite)
-class PreRequisiteMagicRepository extends Repository<TalentPreRequisite> {
+@EntityRepository(PreRequesitTalent)
+class PreRequesitTalentRepository extends Repository<PreRequesitTalent> {
 
 }
 
-export { PreRequisiteMagicRepository };
+export { PreRequesitTalentRepository };

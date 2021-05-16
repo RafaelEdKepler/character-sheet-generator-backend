@@ -3,31 +3,31 @@ import { getCustomRepository } from 'typeorm';
 
 import { EquipmentRepository } from '../repositories/EquipmentRepository';
 import { BenefitEquipmentRepository } from '../repositories/BenefitEquipmentRepository';
-import { CharacteristicEquipmentInterface } from '../utils/interfaces';
+import { CharacteristicInterface } from '../utils/interfaces';
 
 class BenefitEquipmentController {
 
     async createWithName(request: Request, response: Response) {
         const benefitEquipmentRepository = getCustomRepository(BenefitEquipmentRepository);
         const equipmentRepository = getCustomRepository(EquipmentRepository);
-        
+
         const { equipmentName, type, target, value } = request.body;
-        
+
         const equipment = await equipmentRepository.findOne({
             'name': equipmentName
         });
-        
+
         if (!equipment) {
             return response.status(404).json({
                 message: "Equipamento não existente"
             })
         }
-        
+
         const benefitClass = benefitEquipmentRepository.create({
             equipment: equipment.id,
             type, target, value
         })
-        
+
         await benefitEquipmentRepository.save(benefitClass);
 
         return response.json({
@@ -35,16 +35,16 @@ class BenefitEquipmentController {
         })
     }
 
-    async create(benefits: CharacteristicEquipmentInterface) {
-        const benefitEquipmentRepository = getCustomRepository(BenefitEquipmentRepository);        
-        
-        const { equipment, type, target, value } = benefits;
-        
+    async create(benefits: CharacteristicInterface) {
+        const benefitEquipmentRepository = getCustomRepository(BenefitEquipmentRepository);
+
+        const { id, type, target, value } = benefits;
+
         const benefitClass = benefitEquipmentRepository.create({
-            equipment: equipment,
+            equipment: id,
             type, target, value
         })
-        
+
         await benefitEquipmentRepository.save(benefitClass);
 
         return;

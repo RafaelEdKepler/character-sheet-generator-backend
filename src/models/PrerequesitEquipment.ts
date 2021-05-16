@@ -1,5 +1,4 @@
-import { Column, Entity, ManyToOne, PrimaryColumn } from "typeorm";
-import { Equipment } from "./Equipment";
+import { Column, Entity, PrimaryColumn } from "typeorm";
 import { v4 as uuid } from "uuid";
 
 @Entity('equipment_pre_requisites')
@@ -7,7 +6,7 @@ class PreRequesitEquipment {
     @PrimaryColumn()
     readonly id: string;
 
-    @ManyToOne(() => Equipment, equipment => equipment.id)
+    @Column()
     equipment: string;
 
     @Column()

@@ -56,6 +56,13 @@ export interface CharacteristicRaceHabilityArrayInterface {
     pre_requesit: CharacteristicRaceHabilityInterface
 }
 
+export interface CharacteristicInterface {
+    type: string,
+    value: number,
+    target: string,
+    id: string
+}
+
 export interface CharacteristicRaceHabilityInterface {
     type: string,
     value: number,

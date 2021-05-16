@@ -3,31 +3,31 @@ import { getCustomRepository } from 'typeorm';
 
 import { EquipmentRepository } from '../repositories/EquipmentRepository';
 import { PreRequisiteEquipmentRepository } from '../repositories/PreRequesitEquipmentRepository';
-import { CharacteristicEquipmentInterface } from '../utils/interfaces';
+import { CharacteristicInterface } from '../utils/interfaces';
 
 class PreRequesitEquipmentController {
 
     async createWithName(request: Request, response: Response) {
         const preRequisiteEquipmentRepository = getCustomRepository(PreRequisiteEquipmentRepository);
         const equipmentRepository = getCustomRepository(EquipmentRepository);
-        
+
         const { equipmentName, type, target, value } = request.body;
-        
+
         const equipment = await equipmentRepository.findOne({
             'name': equipmentName
         });
-        
+
         if (!equipment) {
             return response.status(404).json({
                 message: "Equipamento não existente"
             })
         }
-        
+
         const benefitEquipment = preRequisiteEquipmentRepository.create({
             equipment: equipment.id,
             type, target, value
         })
-        
+
         await preRequisiteEquipmentRepository.save(benefitEquipment);
 
         return response.json({
@@ -35,16 +35,16 @@ class PreRequesitEquipmentController {
         })
     }
 
-    async create(preRequesits: CharacteristicEquipmentInterface) {
-        const preRequisiteEquipmentRepository = getCustomRepository(PreRequisiteEquipmentRepository);        
-        
-        const { equipment, type, target, value } = preRequesits;
-        
+    async create(preRequesits: CharacteristicInterface) {
+        const preRequisiteEquipmentRepository = getCustomRepository(PreRequisiteEquipmentRepository);
+
+        const { id, type, target, value } = preRequesits;
+
         const benefitEquipment = preRequisiteEquipmentRepository.create({
-            equipment: equipment,
+            equipment: id,
             type, target, value
         })
-        
+
         await preRequisiteEquipmentRepository.save(benefitEquipment);
 
         return;

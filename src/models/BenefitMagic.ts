@@ -1,13 +1,12 @@
-import { Column, Entity, ManyToOne, PrimaryColumn } from "typeorm";
-import { Magic } from "./Magic";
+import { Column, Entity, PrimaryColumn } from "typeorm";
 import { v4 as uuid } from "uuid";
 
-@Entity('benefit_magics')
+@Entity('magic_benefits')
 class BenefitMagic {
     @PrimaryColumn()
     readonly id: string;
 
-    @ManyToOne(() => Magic, magic => magic.id)
+    @Column()
     magic: string;
 
     @Column()

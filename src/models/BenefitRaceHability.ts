@@ -1,14 +1,13 @@
-import { Column, Entity, ManyToOne, PrimaryColumn } from "typeorm";
-import { RaceHability } from "./RaceHability";
+import { Column, Entity, PrimaryColumn } from "typeorm";
 import { v4 as uuid } from "uuid";
 
-@Entity('benefit_race_habilities')
+@Entity('race_hability_benefits')
 class BenefitRaceHability {
     @PrimaryColumn()
     readonly id: string;
 
-    @ManyToOne(() => RaceHability, raceHability => raceHability.id)
-    raceHability: string;
+    @Column()
+    race_hability: string;
 
     @Column()
     type: string;

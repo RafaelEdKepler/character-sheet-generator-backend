@@ -12,7 +12,7 @@ export class CreateClassHabilityBenefits1620951965155 implements MigrationInterf
                         type: "uuid",
                         isPrimary: true
                     }, {
-                        name: "class_hability_id",
+                        name: "class_hability",
                         type: "uuid"
                     },
                     {
@@ -32,7 +32,7 @@ export class CreateClassHabilityBenefits1620951965155 implements MigrationInterf
                         name: "FKClass",
                         referencedTableName: "class_habilities",
                         referencedColumnNames: ["id"],
-                        columnNames: ["class_hability_id"],
+                        columnNames: ["class_hability"],
                         onDelete: "CASCADE",
                         onUpdate: "CASCADE"
                     }

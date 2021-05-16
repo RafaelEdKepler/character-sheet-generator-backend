@@ -1,5 +1,4 @@
-import { Column, Entity, ManyToOne, PrimaryColumn } from "typeorm";
-import { Magic } from "./Magic";
+import { Column, Entity, PrimaryColumn } from "typeorm";
 import { v4 as uuid } from "uuid";
 
 @Entity('magic_pre_requisites')
@@ -7,7 +6,7 @@ class PreRequesitMagic {
     @PrimaryColumn()
     readonly id: string;
 
-    @ManyToOne(() => Magic, magic => magic.id)
+    @Column()
     magic: string;
 
     @Column()

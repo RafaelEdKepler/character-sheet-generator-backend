@@ -12,7 +12,7 @@ export class CreateClassHabilities1620835101767 implements MigrationInterface {
                         type: "uuid",
                         isPrimary: true
                     }, {
-                        name: "class_id",
+                        name: "class",
                         type: "uuid"
                     },
                     {
@@ -28,7 +28,7 @@ export class CreateClassHabilities1620835101767 implements MigrationInterface {
                         name: "FKClass",
                         referencedTableName: "classes",
                         referencedColumnNames: ["id"],
-                        columnNames: ["class_id"],
+                        columnNames: ["class"],
                         onDelete: "CASCADE",
                         onUpdate: "CASCADE"
                     }

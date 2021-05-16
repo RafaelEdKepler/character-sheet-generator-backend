@@ -3,31 +3,31 @@ import { getCustomRepository } from 'typeorm';
 
 import { MagicRepository } from '../repositories/MagicRepository';
 import { PreRequisiteMagicRepository } from '../repositories/PreRequesitMagicRepository';
-import { CharacteristicMagicInterface } from '../utils/interfaces';
+import { CharacteristicInterface } from '../utils/interfaces';
 
 class PreRequesitMagicController {
 
     async createWithName(request: Request, response: Response) {
         const preRequisiteMagicRepository = getCustomRepository(PreRequisiteMagicRepository);
         const magicRepository = getCustomRepository(MagicRepository);
-        
+
         const { magicName, type, target, value } = request.body;
-        
+
         const magic = await magicRepository.findOne({
             'name': magicName
         });
-        
+
         if (!magic) {
             return response.status(404).json({
                 message: "Magia não existente"
             })
         }
-        
+
         const benefitMagic = preRequisiteMagicRepository.create({
             magic: magic.id,
             type, target, value
         })
-        
+
         await preRequisiteMagicRepository.save(benefitMagic);
 
         return response.json({
@@ -35,16 +35,16 @@ class PreRequesitMagicController {
         })
     }
 
-    async create(preRequesits: CharacteristicMagicInterface) {
-        const preRequisiteMagicRepository = getCustomRepository(PreRequisiteMagicRepository);        
-        
-        const { magic, type, target, value } = preRequesits;        
-        
+    async create(preRequesits: CharacteristicInterface) {
+        const preRequisiteMagicRepository = getCustomRepository(PreRequisiteMagicRepository);
+
+        const { id, type, target, value } = preRequesits;
+
         const benefitMagic = preRequisiteMagicRepository.create({
-            magic: magic,
+            magic: id,
             type, target, value
         })
-        
+
         await preRequisiteMagicRepository.save(benefitMagic);
 
         return;

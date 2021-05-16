@@ -4,7 +4,7 @@ import { TalentRepository } from '../repositories/TalentRepository';
 import { BenefitTalentController } from './BenefitTalentController';
 import { PreRequesitTalentController } from './PreRequesitTalentController';
 
-import { CharacteristicTalentArrayInterface } from '../utils/interfaces';
+import { CharacteristicInterface, CharacteristicTalentArrayInterface } from '../utils/interfaces';
 
 
 class TalentController {
@@ -34,13 +34,15 @@ class TalentController {
 
         await talentRepository.save(talent);
 
-        const benefitTalentController = new BenefitTalentController(); 
+        const benefitTalentController = new BenefitTalentController();
         const preRequesitTalentController = new PreRequesitTalentController();
-        features.forEach((item: CharacteristicTalentArrayInterface) => {
-            item.benefit.talent = talent.id;
-            item.pre_requesit.talent = talent.id;
-            benefitTalentController.create(item.benefit);
-            preRequesitTalentController.create(item.pre_requesit);
+        features.benefits.forEach((item: CharacteristicInterface) => {
+            item.id = talent.id;
+            benefitTalentController.create(item);
+        })
+        features.benefits.forEach((item: CharacteristicInterface) => {
+            item.id = talent.id;
+            preRequesitTalentController.create(item);
         })
 
         return response.json({

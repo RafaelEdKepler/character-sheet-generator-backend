@@ -3,31 +3,31 @@ import { getCustomRepository } from 'typeorm';
 
 import { TalentRepository } from '../repositories/TalentRepository';
 import { BenefitTalentRepository } from '../repositories/BenefitTalentRepository';
-import { CharacteristicTalentInterface } from '../utils/interfaces';
+import { CharacteristicInterface } from '../utils/interfaces';
 
 class BenefitTalentController {
 
     async createWithName(request: Request, response: Response) {
         const benefitTalentRepository = getCustomRepository(BenefitTalentRepository);
         const talentRepository = getCustomRepository(TalentRepository);
-        
+
         const { TalentName, type, target, value } = request.body;
-        
+
         const talent = await talentRepository.findOne({
             'name': TalentName
         });
-        
+
         if (!talent) {
             return response.status(404).json({
                 message: "Magia não existente"
             })
         }
-        
+
         const benefitTalent = benefitTalentRepository.create({
             talent: talent.id,
             type, target, value
         })
-        
+
         await benefitTalentRepository.save(benefitTalent);
 
         return response.json({
@@ -35,16 +35,16 @@ class BenefitTalentController {
         })
     }
 
-    async create(benefits: CharacteristicTalentInterface) {
-        const benefitTalentRepository = getCustomRepository(BenefitTalentRepository);        
-        
-        const { talent, type, target, value } = benefits;        
-        
+    async create(benefits: CharacteristicInterface) {
+        const benefitTalentRepository = getCustomRepository(BenefitTalentRepository);
+
+        const { id, type, target, value } = benefits;
+
         const benefitTalent = benefitTalentRepository.create({
-            talent: talent,
+            talent: id,
             type, target, value
         })
-        
+
         await benefitTalentRepository.save(benefitTalent);
 
         return;

@@ -12,7 +12,7 @@ export class CreateEquipmentBenefits1620952163719 implements MigrationInterface 
                         type: "uuid",
                         isPrimary: true
                     }, {
-                        name: "equipment_id",
+                        name: "equipment",
                         type: "uuid"
                     },
                     {
@@ -32,7 +32,7 @@ export class CreateEquipmentBenefits1620952163719 implements MigrationInterface 
                         name: "FKClass",
                         referencedTableName: "equipments",
                         referencedColumnNames: ["id"],
-                        columnNames: ["equipment_id"],
+                        columnNames: ["equipment"],
                         onDelete: "CASCADE",
                         onUpdate: "CASCADE"
                     }

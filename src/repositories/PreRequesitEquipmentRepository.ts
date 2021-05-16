@@ -1,5 +1,5 @@
 import { EntityRepository, Repository } from 'typeorm';
-import { PreRequesitEquipment } from '../models/PreRequesitEquipment';
+import { PreRequesitEquipment } from '../models/PrerequesitEquipment';
 
 @EntityRepository(PreRequesitEquipment)
 class PreRequisiteEquipmentRepository extends Repository<PreRequesitEquipment> {

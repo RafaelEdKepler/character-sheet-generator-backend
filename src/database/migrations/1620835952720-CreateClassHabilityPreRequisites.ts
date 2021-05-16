@@ -12,7 +12,7 @@ export class CreateClassHabilityPreRequisites1620835952720 implements MigrationI
                         type: "uuid",
                         isPrimary: true
                     }, {
-                        name: "class_hability_id",
+                        name: "class_hability",
                         type: "uuid"
                     },
                     {
@@ -32,7 +32,7 @@ export class CreateClassHabilityPreRequisites1620835952720 implements MigrationI
                         name: "FKClass",
                         referencedTableName: "class_habilities",
                         referencedColumnNames: ["id"],
-                        columnNames: ["class_hability_id"],
+                        columnNames: ["class_hability"],
                         onDelete: "CASCADE",
                         onUpdate: "CASCADE"
                     }

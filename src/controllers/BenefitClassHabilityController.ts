@@ -4,31 +4,31 @@ import { getCustomRepository } from 'typeorm';
 import { ClassHabilityRepository } from '../repositories/ClassHabilityRepository';
 import { BenefitClassHabilityRepository } from '../repositories/BenefitClassHabilityRepository';
 
-import { CharacteristicClassHabilityInterface } from '../utils/interfaces';
+import { CharacteristicInterface } from '../utils/interfaces';
 
 class BenefitClassHabilityController {
 
     async createWithName(request: Request, response: Response) {
         const benefitClassHabilityRepository = getCustomRepository(BenefitClassHabilityRepository);
         const classHabilityRepository = getCustomRepository(ClassHabilityRepository);
-        
+
         const { classHabilityName, type, target, value } = request.body;
-        
+
         const classHability = await classHabilityRepository.findOne({
             'name': classHabilityName
         });
-        
+
         if (!classHability) {
             return response.status(404).json({
                 message: "Habilidade de Classe não existente"
             })
         }
-        
+
         const benefitClass = benefitClassHabilityRepository.create({
-            classHability: classHability.id,
+            class_hability: classHability.id,
             type, target, value
         })
-        
+
         await benefitClassHabilityRepository.save(benefitClass);
 
         return response.json({
@@ -36,16 +36,16 @@ class BenefitClassHabilityController {
         })
     }
 
-    public async create(benefits: CharacteristicClassHabilityInterface) {
-        const benefitClassHabilityRepository = getCustomRepository(BenefitClassHabilityRepository);        
-        
-        const { classHability, type, target, value } = benefits;
-        
+    public async create(benefits: CharacteristicInterface) {
+        const benefitClassHabilityRepository = getCustomRepository(BenefitClassHabilityRepository);
+
+        const { id, type, target, value } = benefits;
+
         const benefitClass = benefitClassHabilityRepository.create({
-            classHability: classHability,
+            class_hability: id,
             type, target, value
         })
-        
+
         await benefitClassHabilityRepository.save(benefitClass);
 
         return;
@@ -69,7 +69,7 @@ class BenefitClassHabilityController {
         }
 
         const benefitsClassHability = await benefitClassHabilityRepository.find({
-            classHability: classHability.id
+            class_hability: classHability.id
         });
 
         return response.json({

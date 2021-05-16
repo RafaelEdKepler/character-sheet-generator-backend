@@ -12,7 +12,7 @@ export class CreateEquipmentPreRequisites1620952051472 implements MigrationInter
                         type: "uuid",
                         isPrimary: true
                     }, {
-                        name: "equipment_id",
+                        name: "equipment",
                         type: "uuid"
                     },
                     {
@@ -32,7 +32,7 @@ export class CreateEquipmentPreRequisites1620952051472 implements MigrationInter
                         name: "FKClass",
                         referencedTableName: "equipments",
                         referencedColumnNames: ["id"],
-                        columnNames: ["equipment_id"],
+                        columnNames: ["equipment"],
                         onDelete: "CASCADE",
                         onUpdate: "CASCADE"
                     }

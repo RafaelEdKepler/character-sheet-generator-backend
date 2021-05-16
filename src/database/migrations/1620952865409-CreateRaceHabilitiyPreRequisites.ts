@@ -12,7 +12,7 @@ export class CreateRaceHabilitiyPreRequisites1620952865409 implements MigrationI
                         type: "uuid",
                         isPrimary: true
                     }, {
-                        name: "race_hability_id",
+                        name: "race_hability",
                         type: "uuid"
                     },
                     {
@@ -32,7 +32,7 @@ export class CreateRaceHabilitiyPreRequisites1620952865409 implements MigrationI
                         name: "FKClass",
                         referencedTableName: "race_habilities",
                         referencedColumnNames: ["id"],
-                        columnNames: ["race_hability_id"],
+                        columnNames: ["race_hability"],
                         onDelete: "CASCADE",
                         onUpdate: "CASCADE"
                     }

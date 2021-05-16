@@ -1,5 +1,4 @@
-import { Column, Entity, ManyToOne, PrimaryColumn } from "typeorm";
-import { RaceHability } from "./RaceHability";
+import { Column, Entity, PrimaryColumn } from "typeorm";
 import { v4 as uuid } from "uuid";
 
 @Entity('race_hability_pre_requisites')
@@ -7,8 +6,8 @@ class PreRequesitHabilityRace {
     @PrimaryColumn()
     readonly id: string;
 
-    @ManyToOne(() => RaceHability, raceHability => raceHability.id)
-    raceHability: string;
+    @Column()
+    race_hability: string;
 
     @Column()
     type: string;

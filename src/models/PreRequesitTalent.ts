@@ -1,5 +1,4 @@
-import { Column, Entity, ManyToOne, PrimaryColumn } from "typeorm";
-import { Talent } from "./Talent";
+import { Column, Entity, PrimaryColumn } from "typeorm";
 import { v4 as uuid } from "uuid";
 
 @Entity('talent_pre_requisites')
@@ -7,7 +6,7 @@ class PreRequesitTalent {
     @PrimaryColumn()
     readonly id: string;
 
-    @ManyToOne(() => Talent, talent => talent.id)
+    @Column()
     talent: string;
 
     @Column()

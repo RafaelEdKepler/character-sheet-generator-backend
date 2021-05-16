@@ -1,14 +1,13 @@
-import { Column, Entity, ManyToOne, PrimaryColumn } from "typeorm";
-import { ClassHability } from "./ClassHability";
+import { Column, Entity, PrimaryColumn } from "typeorm";
 import { v4 as uuid } from "uuid";
 
-@Entity('benefit_class_habilities')
+@Entity('class_hability_benefits')
 class BenefitClassHability {
     @PrimaryColumn()
     readonly id: string;
 
-    @ManyToOne(() => ClassHability, classHability => classHability.id)
-    classHability: string;
+    @Column()
+    class_hability: string;
 
     @Column()
     type: string;

@@ -1,13 +1,12 @@
-import { Column, Entity, ManyToOne, PrimaryColumn } from "typeorm";
-import { Equipment } from "./Equipment";
+import { Column, Entity, PrimaryColumn } from "typeorm";
 import { v4 as uuid } from "uuid";
 
-@Entity('benefits_equipments')
+@Entity('equipment_benefits')
 class BenefitEquipment {
     @PrimaryColumn()
     readonly id: string;
 
-    @ManyToOne(() => Equipment, equipment => equipment.id)
+    @Column()
     equipment: string;
 
     @Column()

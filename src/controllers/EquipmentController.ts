@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { getCustomRepository } from 'typeorm';
 import { EquipmentRepository } from '../repositories/EquipmentRepository';
-import { CharacteristicEquipmentArrayInterface } from '../utils/interfaces';
+import { CharacteristicInterface } from '../utils/interfaces';
 import { BenefitEquipmentController } from './BenefitEquipmentController';
 import { PreRequesitEquipmentController } from './PreRequesitEquipmentController';
 
@@ -33,13 +33,15 @@ class EquipmentController {
 
         await equipmentRepository.save(equipment);
 
-        const benefitEquipmentController = new BenefitEquipmentController(); 
+        const benefitEquipmentController = new BenefitEquipmentController();
         const preRequesitEquipmentController = new PreRequesitEquipmentController();
-        features.forEach((item: CharacteristicEquipmentArrayInterface) => {
-            item.benefit.equipment = equipment.id;
-            item.pre_requesit.equipment = equipment.id;
-            benefitEquipmentController.create(item.benefit);
-            preRequesitEquipmentController.create(item.pre_requesit);
+        features.benefits.forEach((item: CharacteristicInterface) => {
+            item.id = equipment.id;
+            benefitEquipmentController.create(item);
+        })
+        features.pre_requesits.forEach((item: CharacteristicInterface) => {
+            item.id = equipment.id;
+            preRequesitEquipmentController.create(item);
         })
 
         return response.json({

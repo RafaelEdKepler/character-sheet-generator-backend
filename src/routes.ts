@@ -40,7 +40,8 @@ const preRequesitTalentController = new PreRequesitTalentController();
 router.post("/race/create", raceController.create);
 router.get("/race/list", raceController.list);
 
-router.post("/race/hability/create", raceHabilityController.create);
+router.post("/race/hability/create", raceHabilityController.createWithDependencies);
+router.post("/race/hability/create-one", raceHabilityController.createWithDependencies);
 router.get("/race/hability/list", raceHabilityController.list);
 
 router.post("/race/hability/benefit/create", benefitRaceHabilityController.create);
@@ -52,7 +53,8 @@ router.get("/race/hability/pre-requesite/list", preRequesitRaceHabilityControlle
 router.post("/class/create", classController.create);
 router.get("/class/list", classController.list);
 
-router.post("/class/hability/create", classHabilityController.create);
+router.post("/class/hability/create", classHabilityController.createWithDependencies);
+router.post("/class/hability/create-one", classHabilityController.createWithDependencies);
 router.get("/class/hability/list", classHabilityController.list);
 
 router.post("/class/hability/benefit/create", benefitClassHabilityController.create);
@@ -61,7 +63,8 @@ router.get("/class/hability/benefit/list", benefitClassHabilityController.list);
 router.post("/class/hability/pre-requesit/create", preRequesitHabilityClassController.create);
 router.get("/class/hability/pre-requesit/list", preRequesitHabilityClassController.list);
 
-router.post("/equipment/create", equipmentController.create);
+router.post("/equipment/create", equipmentController.createWithDependencies);
+router.post("/equipment/create-one", equipmentController.createWithDependencies);
 router.get("/equipment/list", equipmentController.list);
 
 router.post("/equipment/benefit/create", benefitEquipmentController.create);
@@ -70,7 +73,8 @@ router.get("/equipment/benefit/list", benefitEquipmentController.list);
 router.post("/equipment/pre-requesite/create", preRequesiteEquipmentController.create);
 router.get("/equipment/pre-requesite/list", preRequesiteEquipmentController.list);
 
-router.post("/magic/create", magicController.create);
+router.post("/magic/create", magicController.createWithDependencies);
+router.post("/magic/create-one", magicController.createWithDependencies);
 router.get("/magic/list", magicController.list);
 
 router.post("/magic/benefit/create", benefitMagicController.create);
@@ -79,7 +83,8 @@ router.get("/magic/benefit/list", benefitMagicController.list);
 router.post("/magic/pre-requesite/create", preRequesiteMagicController.create);
 router.get("/magic/pre-requesite/list", preRequesiteMagicController.list);
 
-router.post("/talent/create", talentController.create);
+router.post("/talent/create", talentController.createWithDependencies);
+router.post("/talent/create-one", talentController.createWithDependencies);
 router.get("/talent/list", talentController.list);
 
 router.post("/talent/benefit/create", benefitTalentController.create);

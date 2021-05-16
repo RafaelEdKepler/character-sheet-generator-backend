@@ -12,7 +12,7 @@ export class CreateTalentPreRequisites1620952637979 implements MigrationInterfac
                         type: "uuid",
                         isPrimary: true
                     }, {
-                        name: "talent_id",
+                        name: "talent",
                         type: "uuid"
                     },
                     {
@@ -32,7 +32,7 @@ export class CreateTalentPreRequisites1620952637979 implements MigrationInterfac
                         name: "FKClass",
                         referencedTableName: "talents",
                         referencedColumnNames: ["id"],
-                        columnNames: ["talent_id"],
+                        columnNames: ["talent"],
                         onDelete: "CASCADE",
                         onUpdate: "CASCADE"
                     }

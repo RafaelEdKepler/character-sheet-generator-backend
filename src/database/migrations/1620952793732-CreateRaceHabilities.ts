@@ -12,7 +12,7 @@ export class CreateRaceHabilities1620952793732 implements MigrationInterface {
                         type: "uuid",
                         isPrimary: true
                     }, {
-                        name: "race_id",
+                        name: "race",
                         type: "uuid"
                     },
                     {
@@ -28,7 +28,7 @@ export class CreateRaceHabilities1620952793732 implements MigrationInterface {
                         name: "FKClass",
                         referencedTableName: "races",
                         referencedColumnNames: ["id"],
-                        columnNames: ["race_id"],
+                        columnNames: ["race"],
                         onDelete: "CASCADE",
                         onUpdate: "CASCADE"
                     }
