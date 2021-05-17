@@ -56,6 +56,7 @@ router.get("/class/list", classController.list);
 router.post("/class/hability/create", classHabilityController.createWithDependencies);
 router.post("/class/hability/create-one", classHabilityController.createWithDependencies);
 router.get("/class/hability/list", classHabilityController.list);
+router.get("/class/hability/list-with-dependencies", classHabilityController.listWithDependencies);
 
 router.post("/class/hability/benefit/create", benefitClassHabilityController.create);
 router.get("/class/hability/benefit/list", benefitClassHabilityController.list);

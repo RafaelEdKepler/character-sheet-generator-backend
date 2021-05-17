@@ -7,6 +7,8 @@ import { BenefitClassHabilityController } from './BenefitClassHabilityController
 
 import { CharacteristicInterface } from '../utils/interfaces';
 import { PreRequesitClassHabilityController } from './PreRequesitHabilityClassController';
+import { BenefitClassHabilityRepository } from '../repositories/BenefitClassHabilityRepository';
+import { PreRequesiteClassHabilityRepository } from '../repositories/PreRequesitHabilityClassRepoistory';
 
 class ClassHabilityController {
 
@@ -102,6 +104,42 @@ class ClassHabilityController {
         return response.json({
             benefitsClass
         });
+    }
+
+    async listWithDependencies(request: Request, response: Response) {
+        const { className } = request.body;
+
+        const classRepository = getCustomRepository(ClassRepository);
+        const classHabilityRepository = getCustomRepository(ClassHabilityRepository);
+
+
+        const classe = await classRepository.findOne({
+            'name': className
+        });
+
+        if (!classe) {
+            return response.status(404).json({
+                message: "Classe não existente"
+            });
+        }
+
+        const habilityClass = await classHabilityRepository.find({
+            class: classe.id
+        });
+
+        const benefitsClassHabilityRepository = getCustomRepository(BenefitClassHabilityRepository);
+        const preRequesitClassHabilityRepository = getCustomRepository(PreRequesiteClassHabilityRepository);
+        let returnJson = Object(habilityClass);
+        habilityClass.forEach(async (item) => {
+            returnJson[item.id].benefits = await benefitsClassHabilityRepository.find({
+                'class_hability': item.id
+            });
+            returnJson[item.id].pre_requesits = await preRequesitClassHabilityRepository.find({
+                'class_hability': item.id
+            });
+        });
+
+        return response.json(returnJson);
     }
 }
 
