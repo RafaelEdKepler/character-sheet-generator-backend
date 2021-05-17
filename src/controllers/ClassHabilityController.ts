@@ -129,14 +129,16 @@ class ClassHabilityController {
 
         const benefitsClassHabilityRepository = getCustomRepository(BenefitClassHabilityRepository);
         const preRequesitClassHabilityRepository = getCustomRepository(PreRequesiteClassHabilityRepository);
-        let returnJson = Object(habilityClass);
+        let returnJson = new Array();
         habilityClass.forEach(async (item) => {
-            returnJson[item.id].benefits = await benefitsClassHabilityRepository.find({
+            let cloneItem = item;
+            cloneItem.benefits = await benefitsClassHabilityRepository.find({
                 'class_hability': item.id
             });
-            returnJson[item.id].pre_requesits = await preRequesitClassHabilityRepository.find({
+            cloneItem.pre_requesits = await preRequesitClassHabilityRepository.find({
                 'class_hability': item.id
             });
+            returnJson.push(cloneItem);
         });
 
         return response.json(returnJson);
