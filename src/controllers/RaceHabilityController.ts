@@ -109,10 +109,10 @@ class RaceHabilityController {
     async listWithDependencies(request: Request, response: Response) {
         const raceHabilityRepository = getCustomRepository(RaceHabilityRepository);
 
-        const { raceHability, sheet } = request.body;
+        const { race, sheet } = request.body;
 
         const magics = await raceHabilityRepository.find({
-            'name': raceHability
+            'name': race
         });
 
         const benefitRaceHabilityRepository = getCustomRepository(BenefitRaceHabilityRepository);
@@ -132,9 +132,9 @@ class RaceHabilityController {
                 let available = true;
                 item.pre_requesits.forEach((value: CharacteristicInterface) => {
                     try {
-                        for (let sheetKey in sheet) {
-                            if (parseInt(sheet[sheetKey][value.target]) >= value.value) {
-                                continue;
+                        if (sheet[value.type][value.target]) {
+                            if (parseInt(sheet[value.type][value.target]) >= value.value) {
+                                return;
                             }
                             available = false;
                         }

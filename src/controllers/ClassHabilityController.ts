@@ -107,7 +107,7 @@ class ClassHabilityController {
     }
 
     async listWithDependencies(request: Request, response: Response) {
-        const { className } = request.body;
+        const { className, sheet } = request.body;
 
         const classRepository = getCustomRepository(ClassRepository);
         const classHabilityRepository = getCustomRepository(ClassHabilityRepository);
@@ -140,8 +140,32 @@ class ClassHabilityController {
             return cloneItem;
         }));
         Promise.all(returnJson).then((values) => {
+            let availableInfo = values.map((item) => {
+                let available = true;
+                item.pre_requesits.forEach((value: CharacteristicInterface) => {
+                    try {
+                        if (sheet[value.type][value.target]) {
+                            if (parseInt(sheet[value.type][value.target]) >= value.value) {
+                                return;
+                            }
+                            available = false;
+                        }
+                    } catch (e) {
+                        console.log('Erro ao percorrer pre-requesitos! ' + e);
+                    }
+                })
+                if (available) {
+                    return item;
+                }
+                return;
+            })
+
+            availableInfo = availableInfo.filter(function (el) {
+                return el != null;
+            });
+
             return response.json({
-                values
+                availableInfo
             })
         });
     }

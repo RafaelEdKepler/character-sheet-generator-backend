@@ -64,15 +64,15 @@ class EquipmentController {
     async listWithDependencies(request: Request, response: Response) {
         const equipmentRepository = getCustomRepository(EquipmentRepository);
 
-        const { equipment } = request.body;
+        const { equipment, sheet } = request.body;
 
-        const magics = await equipmentRepository.find({
+        const equipments = await equipmentRepository.find({
             'name': equipment
         });
 
         const benefitEquipmentRepository = getCustomRepository(BenefitEquipmentRepository);
         const preRequesitEquipmentRepository = getCustomRepository(PreRequisiteEquipmentRepository);
-        const returnJson = magics.map((async (item) => {
+        const returnJson = equipments.map((async (item) => {
             let cloneItem = Object.assign(item);
             cloneItem.benefits = await benefitEquipmentRepository.find({
                 'equipment': item.id
@@ -83,8 +83,82 @@ class EquipmentController {
             return cloneItem;
         }));
         Promise.all(returnJson).then((values) => {
+            let availableInfo = values.map((item) => {
+                let available = true;
+                item.pre_requesits.forEach((value: CharacteristicInterface) => {
+                    try {
+                        for (let sheetKey in sheet) {
+                            if (parseInt(sheet[sheetKey][value.target]) >= value.value) {
+                                continue;
+                            }
+                            available = false;
+                        }
+                    } catch (e) {
+                        console.log('Erro ao percorrer pre-requesitos! ' + e);
+                    }
+                })
+                if (available) {
+                    return item;
+                }
+                return;
+            })
+
+            availableInfo = availableInfo.filter(function (el) {
+                return el != null;
+            });
+
             return response.json({
-                values
+                availableInfo
+            })
+        });
+    }
+
+    async listAllWithDependencies(request: Request, response: Response) {
+        const equipmentRepository = getCustomRepository(EquipmentRepository);
+
+        const { sheet } = request.body;
+
+        const equipments = await equipmentRepository.find();
+
+        const benefitEquipmentRepository = getCustomRepository(BenefitEquipmentRepository);
+        const preRequesitEquipmentRepository = getCustomRepository(PreRequisiteEquipmentRepository);
+        const returnJson = equipments.map((async (item) => {
+            let cloneItem = Object.assign(item);
+            cloneItem.benefits = await benefitEquipmentRepository.find({
+                'equipment': item.id
+            });
+            cloneItem.pre_requesits = await preRequesitEquipmentRepository.find({
+                'equipment': item.id
+            });
+            return cloneItem;
+        }));
+        Promise.all(returnJson).then((values) => {
+            let availableInfo = values.map((item) => {
+                let available = true;
+                item.pre_requesits.forEach((value: CharacteristicInterface) => {
+                    try {
+                        if (sheet[value.type][value.target]) {
+                            if (parseInt(sheet[value.type][value.target]) >= value.value) {
+                                return;
+                            }
+                            available = false;
+                        }
+                    } catch (e) {
+                        console.log('Erro ao percorrer pre-requesitos! ' + e);
+                    }
+                })
+                if (available) {
+                    return item;
+                }
+                return;
+            })
+
+            availableInfo = availableInfo.filter(function (el) {
+                return el != null;
+            });
+
+            return response.json({
+                availableInfo
             })
         });
     }

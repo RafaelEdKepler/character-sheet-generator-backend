@@ -64,7 +64,7 @@ class MagicController {
     async listWithDependencies(request: Request, response: Response) {
         const magicRepository = getCustomRepository(MagicRepository);
 
-        const { magic } = request.body;
+        const { magic, sheet } = request.body;
 
         const magics = await magicRepository.find({
             'name': magic
@@ -83,8 +83,81 @@ class MagicController {
             return cloneItem;
         }));
         Promise.all(returnJson).then((values) => {
+            let availableInfo = values.map((item) => {
+                let available = true;
+                item.pre_requesits.forEach((value: CharacteristicInterface) => {
+                    try {
+                        for (let sheetKey in sheet) {
+                            if (parseInt(sheet[sheetKey][value.target]) >= value.value) {
+                                continue;
+                            }
+                            available = false;
+                        }
+                    } catch (e) {
+                        console.log('Erro ao percorrer pre-requesitos! ' + e);
+                    }
+                })
+                if (available) {
+                    return item;
+                }
+                return;
+            })
+
+            availableInfo = availableInfo.filter(function (el) {
+                return el != null;
+            });
+
             return response.json({
-                values
+                availableInfo
+            })
+        });
+    }
+
+    async listAllWithDependencies(request: Request, response: Response) {
+        const magicRepository = getCustomRepository(MagicRepository);
+
+        const { sheet } = request.body;
+        const magics = await magicRepository.find();
+
+        const benefitMagicRepository = getCustomRepository(BenefitMagicRepository);
+        const preRequesitMagicRepository = getCustomRepository(PreRequisiteMagicRepository);
+        const returnJson = magics.map((async (item) => {
+            let cloneItem = Object.assign(item);
+            cloneItem.benefits = await benefitMagicRepository.find({
+                'magic': item.id
+            });
+            cloneItem.pre_requesits = await preRequesitMagicRepository.find({
+                'magic': item.id
+            });
+            return cloneItem;
+        }));
+        Promise.all(returnJson).then((values) => {
+            let availableInfo = values.map((item) => {
+                let available = true;
+                item.pre_requesits.forEach((value: CharacteristicInterface) => {
+                    try {
+                        if (sheet[value.type][value.target]) {
+                            if (parseInt(sheet[value.type][value.target]) >= value.value) {
+                                return;
+                            }
+                            available = false;
+                        }
+                    } catch (e) {
+                        console.log('Erro ao percorrer pre-requesitos! ' + e);
+                    }
+                })
+                if (available) {
+                    return item;
+                }
+                return;
+            })
+
+            availableInfo = availableInfo.filter(function (el) {
+                return el != null;
+            });
+
+            return response.json({
+                availableInfo
             })
         });
     }

@@ -44,7 +44,6 @@ class PreRequesitRaceHabilityController {
             race_hability: id,
             type, target, value
         })
-        console.log("Criacao Pre: " + benefitRaceHability.target + ' - ' + target);
         await preRequesiteRaceHabilityRepository.save(benefitRaceHability);
 
         return;

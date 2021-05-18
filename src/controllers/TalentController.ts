@@ -124,6 +124,57 @@ class TalentController {
             })
         });
     }
+
+
+    async listAllWithDependencies(request: Request, response: Response) {
+        const talentRepository = getCustomRepository(TalentRepository);
+
+        const { sheet } = request.body;
+
+        const talents = await talentRepository.find();
+
+        const benefitTalentRepository = getCustomRepository(BenefitTalentRepository);
+        const preRequesitTalentRepository = getCustomRepository(PreRequesitTalentRepository);
+        const returnJson = talents.map((async (item) => {
+            let cloneItem = Object.assign(item);
+            cloneItem.benefits = await benefitTalentRepository.find({
+                'talent': item.id
+            });
+            cloneItem.pre_requesits = await preRequesitTalentRepository.find({
+                'talent': item.id
+            });
+            return cloneItem;
+        }));
+        Promise.all(returnJson).then((values) => {
+            let availableInfo = values.map((item) => {
+                let available = true;
+                item.pre_requesits.forEach((value: CharacteristicInterface) => {
+                    try {
+                        if (sheet[value.type][value.target]) {
+                            if (parseInt(sheet[value.type][value.target]) >= value.value) {
+                                return;
+                            }
+                            available = false;
+                        }
+                    } catch (e) {
+                        console.log('Erro ao percorrer pre-requesitos! ' + e);
+                    }
+                })
+                if (available) {
+                    return item;
+                }
+                return;
+            })
+
+            availableInfo = availableInfo.filter(function (el) {
+                return el != null;
+            });
+
+            return response.json({
+                availableInfo
+            })
+        });
+    }
 }
 
 export { TalentController };
