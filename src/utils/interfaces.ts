@@ -1,61 +1,3 @@
-// Class Hability
-export interface CharacteristicClassHabilityArrayInterface {
-    benefit: CharacteristicClassHabilityInterface,
-    pre_requesit: CharacteristicClassHabilityInterface
-}
-
-export interface CharacteristicClassHabilityInterface {
-    type: string,
-    value: number,
-    target: string,
-    classHability: string
-}
-
-// Equipment
-export interface CharacteristicEquipmentArrayInterface {
-    benefit: CharacteristicEquipmentInterface,
-    pre_requesit: CharacteristicEquipmentInterface
-}
-
-export interface CharacteristicEquipmentInterface {
-    type: string,
-    value: number,
-    target: string,
-    equipment: string
-}
-
-// Magic
-export interface CharacteristicMagicArrayInterface {
-    benefit: CharacteristicMagicInterface,
-    pre_requesit: CharacteristicMagicInterface
-}
-
-export interface CharacteristicMagicInterface {
-    type: string,
-    value: number,
-    target: string,
-    magic: string
-}
-
-// Talent
-export interface CharacteristicTalentArrayInterface {
-    benefit: CharacteristicTalentInterface,
-    pre_requesit: CharacteristicTalentInterface
-}
-
-export interface CharacteristicTalentInterface {
-    type: string,
-    value: number,
-    target: string,
-    talent: string
-}
-
-// Race
-export interface CharacteristicRaceHabilityArrayInterface {
-    benefit: CharacteristicRaceHabilityInterface,
-    pre_requesit: CharacteristicRaceHabilityInterface
-}
-
 export interface CharacteristicInterface {
     type: string,
     value: number,
@@ -63,9 +5,45 @@ export interface CharacteristicInterface {
     id: string
 }
 
-export interface CharacteristicRaceHabilityInterface {
-    type: string,
-    value: number,
-    target: string,
-    raceHability: string
+export interface ReturnResponse {
+    id: string,
+    name: string,
+    description: string,
+    benefits: [{
+
+    }],
+    pre_requesits: [{
+
+    }]
 }
+
+export interface Sheet {
+    nome: string,
+    race: string,
+    class: string,
+    age: string,
+    des: string,
+    hab: {
+        FOR: string,
+        DES: string,
+        CON: string,
+        INT: string,
+        SAB: string,
+        CAR: string
+    },
+    tes: {
+        FOR: string,
+        SOR: string,
+        REF: string
+    },
+    sta: {
+        CA: string,
+        PV: string,
+        PM: string
+    },
+    tam: string,
+    div: string,
+    tend: string
+}
+
+

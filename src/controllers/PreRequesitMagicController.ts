@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { getCustomRepository } from 'typeorm';
 
 import { MagicRepository } from '../repositories/MagicRepository';
-import { PreRequisiteMagicRepository } from '../repositories/PreRequesitMagicRepository';
+import { PreRequisiteMagicRepository } from '../repositories/PreRequisiteMagicRepository';
 import { CharacteristicInterface } from '../utils/interfaces';
 
 class PreRequesitMagicController {

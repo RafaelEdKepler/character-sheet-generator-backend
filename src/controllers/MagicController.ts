@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import { getCustomRepository } from 'typeorm';
+import { BenefitMagicRepository } from '../repositories/BenefitMagicRepository';
 import { MagicRepository } from '../repositories/MagicRepository';
+import { PreRequisiteMagicRepository } from '../repositories/PreRequisiteMagicRepository';
 import { CharacteristicInterface } from '../utils/interfaces';
 import { BenefitMagicController } from './BenefitMagicController';
 import { PreRequesitMagicController } from './PreRequesitMagicController';
@@ -56,6 +58,34 @@ class MagicController {
 
         return response.json({
             magics
+        });
+    }
+
+    async listWithDependencies(request: Request, response: Response) {
+        const magicRepository = getCustomRepository(MagicRepository);
+
+        const { magic } = request.body;
+
+        const magics = await magicRepository.find({
+            'name': magic
+        });
+
+        const benefitMagicRepository = getCustomRepository(BenefitMagicRepository);
+        const preRequesitMagicRepository = getCustomRepository(PreRequisiteMagicRepository);
+        const returnJson = magics.map((async (item) => {
+            let cloneItem = Object.assign(item);
+            cloneItem.benefits = await benefitMagicRepository.find({
+                'magic': item.id
+            });
+            cloneItem.pre_requesits = await preRequesitMagicRepository.find({
+                'magic': item.id
+            });
+            return cloneItem;
+        }));
+        Promise.all(returnJson).then((values) => {
+            return response.json({
+                values
+            })
         });
     }
 }

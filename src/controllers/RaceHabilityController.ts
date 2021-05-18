@@ -7,6 +7,8 @@ import { BenefitRaceHabilityController } from './BenefitRaceHabilityController';
 import { PreRequesitRaceHabilityController } from './PreRequesitHabilityRaceController';
 
 import { CharacteristicInterface } from '../utils/interfaces';
+import { BenefitRaceHabilityRepository } from '../repositories/BenefitRaceHabilityRepository';
+import { PreRequesiteRaceHabilityRepository } from '../repositories/PreRequesitHabilityRaceRepository';
 
 class RaceHabilityController {
 
@@ -101,6 +103,34 @@ class RaceHabilityController {
 
         return response.json({
             habilityRace
+        });
+    }
+
+    async listWithDependencies(request: Request, response: Response) {
+        const raceHabilityRepository = getCustomRepository(RaceHabilityRepository);
+
+        const { raceHability } = request.body;
+
+        const magics = await raceHabilityRepository.find({
+            'name': raceHability
+        });
+
+        const benefitRaceHabilityRepository = getCustomRepository(BenefitRaceHabilityRepository);
+        const preRequesitRaceHabilityRepository = getCustomRepository(PreRequesiteRaceHabilityRepository);
+        const returnJson = magics.map((async (item) => {
+            let cloneItem = Object.assign(item);
+            cloneItem.benefits = await benefitRaceHabilityRepository.find({
+                'race_hability': item.id
+            });
+            cloneItem.pre_requesits = await preRequesitRaceHabilityRepository.find({
+                'race_hability': item.id
+            });
+            return cloneItem;
+        }));
+        Promise.all(returnJson).then((values) => {
+            return response.json({
+                values
+            })
         });
     }
 }

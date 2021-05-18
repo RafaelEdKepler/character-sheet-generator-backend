@@ -77,6 +77,7 @@ router.get("/equipment/pre-requesite/list", preRequesiteEquipmentController.list
 router.post("/magic/create", magicController.createWithDependencies);
 router.post("/magic/create-one", magicController.createWithDependencies);
 router.get("/magic/list", magicController.list);
+router.get("/magic/list-with-dependencies", magicController.listWithDependencies);
 
 router.post("/magic/benefit/create", benefitMagicController.create);
 router.get("/magic/benefit/list", benefitMagicController.list);

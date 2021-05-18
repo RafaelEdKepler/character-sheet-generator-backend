@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import { getCustomRepository } from 'typeorm';
+import { BenefitEquipmentRepository } from '../repositories/BenefitEquipmentRepository';
 import { EquipmentRepository } from '../repositories/EquipmentRepository';
+import { PreRequisiteEquipmentRepository } from '../repositories/PreRequesitEquipmentRepository';
 import { CharacteristicInterface } from '../utils/interfaces';
 import { BenefitEquipmentController } from './BenefitEquipmentController';
 import { PreRequesitEquipmentController } from './PreRequesitEquipmentController';
@@ -56,6 +58,34 @@ class EquipmentController {
 
         return response.json({
             equipments
+        });
+    }
+
+    async listWithDependencies(request: Request, response: Response) {
+        const equipmentRepository = getCustomRepository(EquipmentRepository);
+
+        const { equipment } = request.body;
+
+        const magics = await equipmentRepository.find({
+            'name': equipment
+        });
+
+        const benefitEquipmentRepository = getCustomRepository(BenefitEquipmentRepository);
+        const preRequesitEquipmentRepository = getCustomRepository(PreRequisiteEquipmentRepository);
+        const returnJson = magics.map((async (item) => {
+            let cloneItem = Object.assign(item);
+            cloneItem.benefits = await benefitEquipmentRepository.find({
+                'equipment': item.id
+            });
+            cloneItem.pre_requesits = await preRequesitEquipmentRepository.find({
+                'equipment': item.id
+            });
+            return cloneItem;
+        }));
+        Promise.all(returnJson).then((values) => {
+            return response.json({
+                values
+            })
         });
     }
 }
