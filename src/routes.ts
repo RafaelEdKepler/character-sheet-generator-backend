@@ -88,6 +88,7 @@ router.get("/magic/pre-requesite/list", preRequesiteMagicController.list);
 router.post("/talent/create", talentController.createWithDependencies);
 router.post("/talent/create-one", talentController.createWithDependencies);
 router.get("/talent/list", talentController.list);
+router.get("/talent/list-with-dependencies", talentController.listWithDependencies);
 
 router.post("/talent/benefit/create", benefitTalentController.create);
 router.get("/talent/benefit/list", benefitTalentController.list);

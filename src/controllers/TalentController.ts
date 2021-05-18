@@ -65,15 +65,13 @@ class TalentController {
     async listWithDependencies(request: Request, response: Response) {
         const talentRepository = getCustomRepository(TalentRepository);
 
-        const { talent, sheet } = request.body;
+        const { sheet } = request.body;
 
-        const magics = await talentRepository.find({
-            'name': talent
-        });
+        const talents = await talentRepository.find();
 
         const benefitTalentRepository = getCustomRepository(BenefitTalentRepository);
         const preRequesitTalentRepository = getCustomRepository(PreRequesitTalentRepository);
-        const returnJson = magics.map((async (item) => {
+        const returnJson = talents.map((async (item) => {
             let cloneItem = Object.assign(item);
             cloneItem.benefits = await benefitTalentRepository.find({
                 'talent': item.id
@@ -84,21 +82,29 @@ class TalentController {
             return cloneItem;
         }));
         Promise.all(returnJson).then((values) => {
-            const availableInfo = values.map((item) => {
+            let availableInfo = values.map((item) => {
                 let available = true;
                 item.pre_requesits.forEach((value: CharacteristicInterface) => {
-                    sheet[value.type].forEach((sheetValue: CharacteristicInterface) => {
-                        if (sheetValue.value >= value.value) {
-                            return;
+                    try {
+                        for (let sheetKey in sheet) {
+                            if (parseInt(sheet[sheetKey][value.target]) >= value.value) {
+                                continue;
+                            }
+                            available = false;
                         }
-                        available = false;
-                    })
+                    } catch (e) {
+                        console.log('Erro ao percorrer pre-requesitos! ' + e);
+                    }
                 })
                 if (available) {
                     return item;
                 }
                 return;
             })
+
+            availableInfo = availableInfo.filter(function (el) {
+                return el != null;
+            });
 
             return response.json({
                 availableInfo

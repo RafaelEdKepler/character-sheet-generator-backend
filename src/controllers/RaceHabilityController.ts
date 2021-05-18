@@ -109,7 +109,7 @@ class RaceHabilityController {
     async listWithDependencies(request: Request, response: Response) {
         const raceHabilityRepository = getCustomRepository(RaceHabilityRepository);
 
-        const { raceHability } = request.body;
+        const { raceHability, sheet } = request.body;
 
         const magics = await raceHabilityRepository.find({
             'name': raceHability
@@ -128,8 +128,32 @@ class RaceHabilityController {
             return cloneItem;
         }));
         Promise.all(returnJson).then((values) => {
+            let availableInfo = values.map((item) => {
+                let available = true;
+                item.pre_requesits.forEach((value: CharacteristicInterface) => {
+                    try {
+                        for (let sheetKey in sheet) {
+                            if (parseInt(sheet[sheetKey][value.target]) >= value.value) {
+                                continue;
+                            }
+                            available = false;
+                        }
+                    } catch (e) {
+                        console.log('Erro ao percorrer pre-requesitos! ' + e);
+                    }
+                })
+                if (available) {
+                    return item;
+                }
+                return;
+            })
+
+            availableInfo = availableInfo.filter(function (el) {
+                return el != null;
+            });
+
             return response.json({
-                values
+                availableInfo
             })
         });
     }
