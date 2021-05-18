@@ -52,10 +52,23 @@ class TalentController {
         })
     }
 
-    async list(request: Request, response: Response) {
+    async listAll(request: Request, response: Response) {
         const talentRepository = getCustomRepository(TalentRepository);
 
         const talents = await talentRepository.find();
+
+        return response.json({
+            talents
+        });
+    }
+
+    async list(request: Request, response: Response) {
+        const talentRepository = getCustomRepository(TalentRepository);
+        const { talent } = request.body;
+
+        const talents = await talentRepository.find({
+            name: talent
+        });
 
         return response.json({
             talents
