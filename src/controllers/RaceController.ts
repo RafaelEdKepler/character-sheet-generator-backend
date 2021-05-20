@@ -22,11 +22,11 @@ class RaceController {
 
     async list(request: Request, response: Response) {
         const raceRepository = getCustomRepository(RaceRepository);
-
         const races = await raceRepository.find();
 
-        return response.json({
-            races
+        return response.status(200).json({
+            'response': races,
+            'quantity': 1
         });
     }
 }

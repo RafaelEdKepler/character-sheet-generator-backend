@@ -33,7 +33,7 @@ export interface Sheet {
     },
     tes: {
         FOR: string,
-        SOR: string,
+        VON: string,
         REF: string
     },
     sta: {
