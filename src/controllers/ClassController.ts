@@ -26,7 +26,8 @@ class ClassController {
         const classes = await classRepository.find();
 
         return response.json({
-            classes
+            response: classes,
+            quantity: 1
         });
     }
 }
