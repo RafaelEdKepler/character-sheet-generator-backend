@@ -153,7 +153,7 @@ class RaceHabilityController {
             });
 
             return response.json({
-                availableInfo
+                response: availableInfo
             })
         });
     }
