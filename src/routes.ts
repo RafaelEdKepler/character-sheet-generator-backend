@@ -43,7 +43,7 @@ router.get("/race/list", raceController.list);
 router.post("/race/hability/create", raceHabilityController.createWithDependencies);
 router.post("/race/hability/create-one", raceHabilityController.create);
 router.get("/race/hability/list", raceHabilityController.list);
-router.get("/race/hability/list-with-dependencies", raceHabilityController.listWithDependencies);
+router.post("/race/hability/list-with-dependencies", raceHabilityController.listWithDependencies);
 
 router.post("/race/hability/benefit/create", benefitRaceHabilityController.create);
 router.get("/race/hability/benefit/list", benefitRaceHabilityController.list);
@@ -57,7 +57,7 @@ router.get("/class/list", classController.list);
 router.post("/class/hability/create", classHabilityController.createWithDependencies);
 router.post("/class/hability/create-one", classHabilityController.createWithDependencies);
 router.get("/class/hability/list", classHabilityController.list);
-router.get("/class/hability/list-all-with-dependencies", classHabilityController.listWithDependencies);
+router.post("/class/hability/list-all-with-dependencies", classHabilityController.listWithDependencies);
 
 router.post("/class/hability/benefit/create", benefitClassHabilityController.create);
 router.get("/class/hability/benefit/list", benefitClassHabilityController.list);
@@ -69,7 +69,7 @@ router.post("/equipment/create", equipmentController.createWithDependencies);
 router.post("/equipment/create-one", equipmentController.createWithDependencies);
 router.get("/equipment/list", equipmentController.list);
 router.get("/equipment/list-all-with-dependencies", equipmentController.listAllWithDependencies);
-router.get("/equipment/list-with-dependencies", equipmentController.listWithDependencies);
+router.post("/equipment/list-with-dependencies", equipmentController.listWithDependencies);
 
 router.post("/equipment/benefit/create", benefitEquipmentController.create);
 router.get("/equipment/benefit/list", benefitEquipmentController.list);
@@ -81,7 +81,7 @@ router.post("/magic/create", magicController.createWithDependencies);
 router.post("/magic/create-one", magicController.createWithDependencies);
 router.get("/magic/list", magicController.list);
 router.get("/magic/list-with-dependencies", magicController.listWithDependencies);
-router.get("/magic/list-all-with-dependencies", magicController.listAllWithDependencies);
+router.post("/magic/list-all-with-dependencies", magicController.listAllWithDependencies);
 
 router.post("/magic/benefit/create", benefitMagicController.create);
 router.get("/magic/benefit/list", benefitMagicController.list);
@@ -93,7 +93,7 @@ router.post("/talent/create", talentController.createWithDependencies);
 router.post("/talent/create-one", talentController.createWithDependencies);
 router.get("/talent/list", talentController.list);
 router.get("/talent/list-with-dependencies", talentController.listWithDependencies);
-router.get("/talent/list-all-with-dependencies", talentController.listAllWithDependencies);
+router.post("/talent/list-all-with-dependencies", talentController.listAllWithDependencies);
 
 router.post("/talent/benefit/create", benefitTalentController.create);
 router.get("/talent/benefit/list", benefitTalentController.list);
