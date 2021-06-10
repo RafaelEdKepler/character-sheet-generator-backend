@@ -16,7 +16,7 @@ class Race {
     personality: string;
 
     @Column()
-    appearence: string;
+    appearance: string;
 
     @Column()
     relationship: string;

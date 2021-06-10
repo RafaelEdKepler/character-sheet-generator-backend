@@ -16,7 +16,7 @@ class ClassController {
         await classRepository.save(classe);
 
         return response.json({
-            message: "Classe foi criada com sucesso!"
+            message: "Classe " + name + " foi criada com sucesso!"
         })
     }
 

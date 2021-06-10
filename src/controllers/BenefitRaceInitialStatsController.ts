@@ -31,7 +31,7 @@ class BenefitRaceInitialStatsController {
         await benefitRaceInitialStatsRepository.save(benefitRaceHability);
 
         return response.json({
-            message: "Benefício de Magia foi criado com sucesso!"
+            message: "Status inicial foi criado com sucesso!"
         })
     }
 

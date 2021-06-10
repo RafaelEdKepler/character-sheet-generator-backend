@@ -16,6 +16,8 @@ import { BenefitMagicController } from './controllers/BenefitMagicController';
 import { TalentController } from './controllers/TalentController';
 import { PreRequesitTalentController } from './controllers/PreRequesitTalentController';
 import { BenefitTalentController } from './controllers/BenefitTalentController';
+import { BenefitRaceInitialStatsController } from './controllers/BenefitRaceInitialStatsController';
+import { BenefitClassInitialStatsController } from './controllers/BenefitClassInitialStatsController';
 
 const router = Router();
 
@@ -36,6 +38,8 @@ const preRequesiteMagicController = new PreRequesitMagicController();
 const talentController = new TalentController();
 const benefitTalentController = new BenefitTalentController();
 const preRequesitTalentController = new PreRequesitTalentController();
+const benefitRaceInitialStatsController = new BenefitRaceInitialStatsController();
+const benefitClassInitialStatsController = new BenefitClassInitialStatsController();
 
 router.post("/race/create", raceController.create);
 router.get("/race/list", raceController.list);
@@ -44,6 +48,8 @@ router.post("/race/hability/create", raceHabilityController.createWithDependenci
 router.post("/race/hability/create-one", raceHabilityController.create);
 router.get("/race/hability/list", raceHabilityController.list);
 router.post("/race/hability/list-with-dependencies", raceHabilityController.listWithDependencies);
+router.post("/race/initial-stats/create", benefitRaceInitialStatsController.createWithName);
+router.get("/race/initial-stats/list", benefitRaceInitialStatsController.list);
 
 router.post("/race/hability/benefit/create", benefitRaceHabilityController.create);
 router.get("/race/hability/benefit/list", benefitRaceHabilityController.list);
@@ -58,6 +64,8 @@ router.post("/class/hability/create", classHabilityController.createWithDependen
 router.post("/class/hability/create-one", classHabilityController.createWithDependencies);
 router.get("/class/hability/list", classHabilityController.list);
 router.post("/class/hability/list-all-with-dependencies", classHabilityController.listWithDependencies);
+router.post("/class/initial-stats/create", benefitClassInitialStatsController.createWithName);
+router.get("/class/initial-stats/list", benefitClassInitialStatsController.list);
 
 router.post("/class/hability/benefit/create", benefitClassHabilityController.create);
 router.get("/class/hability/benefit/list", benefitClassHabilityController.list);
