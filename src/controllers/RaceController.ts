@@ -8,9 +8,9 @@ class RaceController {
     async create(request: Request, response: Response) {
         const raceRepository = getCustomRepository(RaceRepository);
 
-        const { name, description } = request.body;
+        const { name, description, personality, appearence, relationship, tendency, origin, religion, names, adventures } = request.body;
         const race = raceRepository.create({
-            name, description
+            name, description, personality, appearence, relationship, tendency, origin, religion, names, adventures
         })
 
         await raceRepository.save(race);

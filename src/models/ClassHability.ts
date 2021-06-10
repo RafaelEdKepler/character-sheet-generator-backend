@@ -15,6 +15,14 @@ class ClassHability {
     @Column()
     description: string;
 
+    @Column()
+    level: number;
+
+    @Column({ nullable: true })
+    group: string;
+
+    @Column({ nullable: true })
+    quantity: number;
 
     constructor() {
         if (!this.id) {

@@ -17,6 +17,30 @@ export class CreateRaces1620835010060 implements MigrationInterface {
                     }, {
                         name: "description",
                         type: "varchar"
+                    }, {
+                        name: "personality",
+                        type: "varchar"
+                    }, {
+                        name: "appearance",
+                        type: "varchar"
+                    }, {
+                        name: "relationship",
+                        type: "varchar"
+                    }, {
+                        name: "tendency",
+                        type: "varchar"
+                    }, {
+                        name: "origin",
+                        type: "varchar"
+                    }, {
+                        name: "religion",
+                        type: "varchar"
+                    }, {
+                        name: "names",
+                        type: "varchar"
+                    }, {
+                        name: "adventures",
+                        type: "varchar"
                     }
                 ]
             })

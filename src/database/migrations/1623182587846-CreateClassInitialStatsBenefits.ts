@@ -1,11 +1,11 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export class CreateClassHabilities1620835101767 implements MigrationInterface {
+export class CreateClassInitialStatsBenefits1623182587846 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name: "class_habilities",
+                name: "class_initial_stats_benefits",
                 columns: [
                     {
                         name: "id",
@@ -16,21 +16,16 @@ export class CreateClassHabilities1620835101767 implements MigrationInterface {
                         type: "uuid"
                     },
                     {
-                        name: "name",
+                        name: "type",
                         type: "varchar"
                     }, {
-                        name: "description",
+                        name: "target",
                         type: "varchar"
-                    }, {
-                        name: "level",
-                        type: "number"
-                    }, {
-                        name: "group",
-                        type: "varchar"
-                    }, {
-                        name: "quantity",
-                        type: "number",
-                    }
+                    },
+                    {
+                        name: "value",
+                        type: "integer"
+                    },
                 ],
                 foreignKeys: [
                     {
@@ -47,7 +42,7 @@ export class CreateClassHabilities1620835101767 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable("classHabilities");
+        await queryRunner.dropTable('class_initial_stats_benefits');
     }
 
 }

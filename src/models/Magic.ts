@@ -12,6 +12,30 @@ class Magic {
     @Column()
     description: string;
 
+    @Column()
+    level: number;
+
+    @Column()
+    type: string;
+
+    @Column()
+    method: string;
+
+    @Column()
+    time_execution: string;
+
+    @Column()
+    range: string;
+
+    @Column()
+    target: string;
+
+    @Column()
+    duration: string;
+
+    @Column()
+    resistence_test: string;
+
 
     constructor() {
         if (!this.id) {

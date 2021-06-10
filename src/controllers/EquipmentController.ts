@@ -13,9 +13,9 @@ class EquipmentController {
     async create(request: Request, response: Response) {
         const equipmentRepository = getCustomRepository(EquipmentRepository);
 
-        const { name, description } = request.body;
+        const { name, description, cost, damage, critic, distance, weight, type_damage, ca_bonus, dex_bonus, armor_penalty } = request.body;
         const equipment = equipmentRepository.create({
-            name, description
+            name, description, cost, damage, critic, distance, weight, type_damage, ca_bonus, dex_bonus, armor_penalty
         })
 
         await equipmentRepository.save(equipment);
@@ -28,9 +28,9 @@ class EquipmentController {
     async createWithDependencies(request: Request, response: Response) {
         const equipmentRepository = getCustomRepository(EquipmentRepository);
 
-        const { name, description, features } = request.body;
+        const { name, description, cost, damage, critic, distance, weight, type_damage, ca_bonus, dex_bonus, armor_penalty, features } = request.body;
         const equipment = equipmentRepository.create({
-            name, description
+            name, description, cost, damage, critic, distance, weight, type_damage, ca_bonus, dex_bonus, armor_penalty
         })
 
         await equipmentRepository.save(equipment);

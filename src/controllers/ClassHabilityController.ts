@@ -165,7 +165,8 @@ class ClassHabilityController {
             });
 
             return response.json({
-                availableInfo
+                response: availableInfo,
+                quantity: 0
             })
         });
     }

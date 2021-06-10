@@ -17,6 +17,30 @@ export class CreateMagics1620952260054 implements MigrationInterface {
                     }, {
                         name: "description",
                         type: "varchar"
+                    }, {
+                        name: "level",
+                        type: "number"
+                    }, {
+                        name: "type",
+                        type: "varchar"
+                    }, {
+                        name: "method",
+                        type: "varchar"
+                    }, {
+                        name: "time_execution",
+                        type: "varchar"
+                    }, {
+                        name: "range",
+                        type: "varchar"
+                    }, {
+                        name: "target",
+                        type: "varchar"
+                    }, {
+                        name: "duration",
+                        type: "varchar"
+                    }, {
+                        name: "resistence_test",
+                        type: "varchar"
                     }
                 ]
             })

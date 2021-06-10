@@ -14,9 +14,9 @@ class TalentController {
     async create(request: Request, response: Response) {
         const talentRepository = getCustomRepository(TalentRepository);
 
-        const { name, description } = request.body;
+        const { name, description, type, special, normal, cost } = request.body;
         const talent = talentRepository.create({
-            name, description
+            name, description, type, special, normal, cost
         })
 
         await talentRepository.save(talent);

@@ -12,6 +12,24 @@ class Class {
     @Column()
     description: string;
 
+    @Column()
+    adventures: string;
+
+    @Column()
+    tendency: string;
+
+    @Column()
+    religion: string;
+
+    @Column()
+    history: string;
+
+    @Column()
+    races: string;
+
+    @Column()
+    classes: string;
+
 
     constructor() {
         if (!this.id) {

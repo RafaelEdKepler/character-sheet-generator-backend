@@ -17,6 +17,24 @@ export class CreateClasses1620697443456 implements MigrationInterface {
                     }, {
                         name: "description",
                         type: "varchar"
+                    }, {
+                        name: "adventures",
+                        type: "varchar"
+                    }, {
+                        name: "tendency",
+                        type: "varchar"
+                    }, {
+                        name: "religion",
+                        type: "varchar"
+                    }, {
+                        name: "history",
+                        type: "varchar"
+                    }, {
+                        name: "races",
+                        type: "varchar"
+                    }, {
+                        name: "classes",
+                        type: "varchar"
                     }
                 ]
             })

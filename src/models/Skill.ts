@@ -1,8 +1,8 @@
 import { Column, Entity, PrimaryColumn } from "typeorm";
 import { v4 as uuid } from "uuid";
 
-@Entity("talents")
-class Talent {
+@Entity("skills")
+class Skill {
     @PrimaryColumn()
     readonly id: string;
 
@@ -13,16 +13,7 @@ class Talent {
     description: string;
 
     @Column()
-    type: string;
-
-    @Column({ nullable: true })
-    special: string;
-
-    @Column({ nullable: true })
-    normal: string;
-
-    @Column({ nullable: true })
-    cost: string;
+    modifier: string;
 
     constructor() {
         if (!this.id) {
@@ -31,4 +22,4 @@ class Talent {
     }
 }
 
-export { Talent };
+export { Skill };

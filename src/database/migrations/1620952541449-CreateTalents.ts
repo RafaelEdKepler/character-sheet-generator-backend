@@ -17,6 +17,18 @@ export class CreateTalents1620952541449 implements MigrationInterface {
                     }, {
                         name: "description",
                         type: "varchar"
+                    }, {
+                        name: "type",
+                        type: "varchar"
+                    }, {
+                        name: "special",
+                        type: "varchar"
+                    }, {
+                        name: "normal",
+                        type: "varchar"
+                    }, {
+                        name: "cost",
+                        type: "varchar"
                     }
                 ]
             })

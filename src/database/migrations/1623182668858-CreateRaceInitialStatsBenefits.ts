@@ -1,43 +1,38 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export class CreateClassHabilities1620835101767 implements MigrationInterface {
+export class CreateRaceInitialStatsBenefits1623182668858 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name: "class_habilities",
+                name: "race_initial_stats_benefits",
                 columns: [
                     {
                         name: "id",
                         type: "uuid",
                         isPrimary: true
                     }, {
-                        name: "class",
+                        name: "race",
                         type: "uuid"
                     },
                     {
-                        name: "name",
+                        name: "type",
                         type: "varchar"
                     }, {
-                        name: "description",
+                        name: "target",
                         type: "varchar"
-                    }, {
-                        name: "level",
-                        type: "number"
-                    }, {
-                        name: "group",
-                        type: "varchar"
-                    }, {
-                        name: "quantity",
-                        type: "number",
-                    }
+                    },
+                    {
+                        name: "value",
+                        type: "integer"
+                    },
                 ],
                 foreignKeys: [
                     {
                         name: "FKClass",
-                        referencedTableName: "classes",
+                        referencedTableName: "races",
                         referencedColumnNames: ["id"],
-                        columnNames: ["class"],
+                        columnNames: ["race"],
                         onDelete: "CASCADE",
                         onUpdate: "CASCADE"
                     }
@@ -47,7 +42,7 @@ export class CreateClassHabilities1620835101767 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable("classHabilities");
+        await queryRunner.dropTable('race_initial_stats_benefits');
     }
 
 }

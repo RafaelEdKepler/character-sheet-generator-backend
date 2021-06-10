@@ -12,6 +12,32 @@ class Equipment {
     @Column()
     description: string;
 
+    @Column()
+    cost: string;
+
+    @Column()
+    damage: string;
+
+    @Column()
+    critic: string;
+
+    @Column()
+    distance: string;
+
+    @Column()
+    weight: string;
+
+    @Column()
+    type_damage: string;
+
+    @Column()
+    ca_bonus: string;
+
+    @Column()
+    dex_bonus: string;
+
+    @Column()
+    armor_penalty: string;
 
     constructor() {
         if (!this.id) {

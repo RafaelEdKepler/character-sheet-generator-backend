@@ -1,34 +1,29 @@
 import { Column, Entity, PrimaryColumn } from "typeorm";
 import { v4 as uuid } from "uuid";
 
-@Entity("talents")
-class Talent {
+@Entity('race_initial_stats_benefits')
+class BenefitRaceInitialStats {
     @PrimaryColumn()
     readonly id: string;
 
     @Column()
-    name: string;
-
-    @Column()
-    description: string;
+    race: string;
 
     @Column()
     type: string;
 
-    @Column({ nullable: true })
-    special: string;
+    @Column()
+    target: string;
 
-    @Column({ nullable: true })
-    normal: string;
-
-    @Column({ nullable: true })
-    cost: string;
+    @Column()
+    value: number;
 
     constructor() {
         if (!this.id) {
             this.id = uuid();
         }
     }
+
 }
 
-export { Talent };
+export { BenefitRaceInitialStats };

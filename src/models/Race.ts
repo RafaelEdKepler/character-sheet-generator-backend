@@ -12,6 +12,30 @@ class Race {
     @Column()
     description: string;
 
+    @Column()
+    personality: string;
+
+    @Column()
+    appearence: string;
+
+    @Column()
+    relationship: string;
+
+    @Column()
+    tendency: string;
+
+    @Column()
+    origin: string;
+
+    @Column()
+    religion: string;
+
+    @Column()
+    names: string;
+
+    @Column()
+    adventures: string;
+
 
     constructor() {
         if (!this.id) {

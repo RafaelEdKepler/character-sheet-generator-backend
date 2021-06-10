@@ -8,9 +8,9 @@ class ClassController {
     async create(request: Request, response: Response) {
         const classRepository = getCustomRepository(ClassRepository);
 
-        const { name, description } = request.body;
+        const { name, description, adventures, tendency, religion, history, races, classes } = request.body;
         const classe = classRepository.create({
-            name, description
+            name, description, adventures, tendency, religion, history, races, classes
         })
 
         await classRepository.save(classe);

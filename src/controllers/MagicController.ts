@@ -13,9 +13,9 @@ class MagicController {
     async create(request: Request, response: Response) {
         const magicRepository = getCustomRepository(MagicRepository);
 
-        const { name, description } = request.body;
+        const { name, description, level, type, method, time_execution, range, target, duration, resistence_test } = request.body;
         const magic = magicRepository.create({
-            name, description
+            name, description, level, type, method, time_execution, range, target, duration, resistence_test
         })
 
         await magicRepository.save(magic);
@@ -28,9 +28,9 @@ class MagicController {
     async createWithDependencies(request: Request, response: Response) {
         const magicRepository = getCustomRepository(MagicRepository);
 
-        const { name, description, features } = request.body;
+        const { name, description, level, type, method, time_execution, range, target, duration, resistence_test, features } = request.body;
         const magic = magicRepository.create({
-            name, description
+            name, description, level, type, method, time_execution, range, target, duration, resistence_test
         })
 
         await magicRepository.save(magic);
