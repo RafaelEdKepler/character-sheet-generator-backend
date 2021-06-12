@@ -12,10 +12,10 @@ class BenefitClassInitialStatsController {
         const benefitclassRepository = getCustomRepository(BenefitClassInitialStatsRepository);
         const classRepository = getCustomRepository(ClassRepository);
 
-        const { classHabilityName, type, target, value } = request.body;
+        const { className, type, target, value } = request.body;
 
         const classe = await classRepository.findOne({
-            'name': classHabilityName
+            'name': className
         });
 
         if (!classe) {
@@ -52,14 +52,14 @@ class BenefitClassInitialStatsController {
     }
 
     async list(request: Request, response: Response) {
-        const { classHabilityName } = request.body;
+        const { className } = request.body;
 
         const classRepository = getCustomRepository(ClassRepository);
         const benefitclassRepository = getCustomRepository(BenefitClassInitialStatsRepository);
 
 
         const classHability = await classRepository.findOne({
-            'name': classHabilityName
+            'name': className
         });
 
         if (!classHability) {

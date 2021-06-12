@@ -24,6 +24,9 @@ class Talent {
     @Column({ nullable: true })
     cost: string;
 
+    @Column({ nullable: true})
+    benefits: string;
+
     constructor() {
         if (!this.id) {
             this.id = uuid();

@@ -14,9 +14,9 @@ class TalentController {
     async create(request: Request, response: Response) {
         const talentRepository = getCustomRepository(TalentRepository);
 
-        const { name, description, type, special, normal, cost } = request.body;
+        const { name, description, type, special, normal, cost, benefits } = request.body;
         const talent = talentRepository.create({
-            name, description, type, special, normal, cost
+            name, description, type, special, normal, cost, benefits
         })
 
         await talentRepository.save(talent);
@@ -29,9 +29,9 @@ class TalentController {
     async createWithDependencies(request: Request, response: Response) {
         const talentRepository = getCustomRepository(TalentRepository);
 
-        const { name, description, features } = request.body;
+        const { name, description, type, special, normal, cost, benefits, features } = request.body;
         const talent = talentRepository.create({
-            name, description
+            name, description, type, special, normal, cost, benefits
         })
 
         await talentRepository.save(talent);
@@ -42,7 +42,7 @@ class TalentController {
             item.id = talent.id;
             benefitTalentController.create(item);
         })
-        features.benefits.forEach((item: CharacteristicInterface) => {
+        features.prerequesit.forEach((item: CharacteristicInterface) => {
             item.id = talent.id;
             preRequesitTalentController.create(item);
         })
