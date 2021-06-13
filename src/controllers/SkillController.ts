@@ -8,9 +8,9 @@ class SkillController {
     async create(request: Request, response: Response) {
         const skillRepository = getCustomRepository(SkillRepository);
 
-        const { name, description, modifier } = request.body;
+        const { name, description, modifier, abbreviation } = request.body;
         const skill = skillRepository.create({
-            name, description, modifier
+            name, description, modifier, abbreviation
         })
 
         await skillRepository.save(skill);

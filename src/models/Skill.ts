@@ -15,6 +15,9 @@ class Skill {
     @Column()
     modifier: string;
 
+    @Column()
+    abbreviation: string;
+
     constructor() {
         if (!this.id) {
             this.id = uuid();
