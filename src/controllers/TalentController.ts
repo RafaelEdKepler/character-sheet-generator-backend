@@ -38,17 +38,21 @@ class TalentController {
 
         const benefitTalentController = new BenefitTalentController();
         const preRequesitTalentController = new PreRequesitTalentController();
-        features.benefits.forEach((item: CharacteristicInterface) => {
-            item.id = talent.id;
-            benefitTalentController.create(item);
-        })
-        features.prerequesit.forEach((item: CharacteristicInterface) => {
-            item.id = talent.id;
-            preRequesitTalentController.create(item);
-        })
+        if (features.benefits) {
+            features.benefits.forEach((item: CharacteristicInterface) => {
+                item.id = talent.id;
+                benefitTalentController.create(item);
+            })
+        }
+        if (features.prerequesits) {
+            features.prerequesits.forEach((item: CharacteristicInterface) => {
+                item.id = talent.id;
+                preRequesitTalentController.create(item);
+            })
+        }
 
         return response.json({
-            message: "Equipamento foi criado com sucesso!"
+            message: "Talento "+name+" foi criado com sucesso!"
         })
     }
 

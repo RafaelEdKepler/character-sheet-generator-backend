@@ -18,6 +18,9 @@ class BenefitTalent {
     @Column()
     value: number;
 
+    @Column({nullable: true})
+    modifier: string;
+
     constructor() {
         if (!this.id) {
             this.id = uuid();

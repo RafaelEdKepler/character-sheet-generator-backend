@@ -2,7 +2,8 @@ export interface CharacteristicInterface {
     type: string,
     value: number,
     target: string,
-    id: string
+    id: string,
+    modifier: string
 }
 
 export interface ReturnResponse {

@@ -11,7 +11,7 @@ class BenefitTalentController {
         const benefitTalentRepository = getCustomRepository(BenefitTalentRepository);
         const talentRepository = getCustomRepository(TalentRepository);
 
-        const { TalentName, type, target, value } = request.body;
+        const { TalentName, type, target, value, modifier } = request.body;
 
         const talent = await talentRepository.findOne({
             'name': TalentName
@@ -25,7 +25,7 @@ class BenefitTalentController {
 
         const benefitTalent = benefitTalentRepository.create({
             talent: talent.id,
-            type, target, value
+            type, target, value, modifier
         })
 
         await benefitTalentRepository.save(benefitTalent);
@@ -38,11 +38,11 @@ class BenefitTalentController {
     async create(benefits: CharacteristicInterface) {
         const benefitTalentRepository = getCustomRepository(BenefitTalentRepository);
 
-        const { id, type, target, value } = benefits;
+        const { id, type, target, value, modifier } = benefits;
 
         const benefitTalent = benefitTalentRepository.create({
             talent: id,
-            type, target, value
+            type, target, value, modifier
         })
 
         await benefitTalentRepository.save(benefitTalent);

@@ -18,6 +18,7 @@ import { PreRequesitTalentController } from './controllers/PreRequesitTalentCont
 import { BenefitTalentController } from './controllers/BenefitTalentController';
 import { BenefitRaceInitialStatsController } from './controllers/BenefitRaceInitialStatsController';
 import { BenefitClassInitialStatsController } from './controllers/BenefitClassInitialStatsController';
+import { SkillController } from './controllers/SkillController';
 
 const router = Router();
 
@@ -40,6 +41,8 @@ const benefitTalentController = new BenefitTalentController();
 const preRequesitTalentController = new PreRequesitTalentController();
 const benefitRaceInitialStatsController = new BenefitRaceInitialStatsController();
 const benefitClassInitialStatsController = new BenefitClassInitialStatsController();
+const skillController = new SkillController();
+
 
 router.post("/race/create", raceController.create);
 router.get("/race/list", raceController.list);
@@ -108,5 +111,8 @@ router.get("/talent/benefit/list", benefitTalentController.list);
 
 router.post("/talent/pre-requesite/create", preRequesitTalentController.create);
 router.get("/talent/pre-requesite/list", preRequesitTalentController.list);
+
+router.post("/skill/create", skillController.create);
+router.get("/skill/list", skillController.list);
 
 export default router;
